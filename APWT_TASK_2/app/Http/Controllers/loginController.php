@@ -25,14 +25,19 @@ class loginController extends Controller
             "id"=>"required|integer|digits:8",
             'dob'=>'required|after_or_equal:1990-01-01|before:today',
             'email'=>'required|email',
-            'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|digits:11'
+            'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|digits:11',
+            'address' => 'required'
         ],
         ['name.required'=>"Required Field must be Filled-Up"]
     );
-    
+    $output = "<h1>SUBMITTED DATA</h1>";
+    $output.= "Name:  ".$request->name. "<br>";
+    $output.= "ID:    ".$request->id. "<br>";
+    $output.= "DOB:   ".$request->dob. "<br>";
+    $output.= "Email: ".$request->email. "<br>";
+    $output.= "Phone: ".$request->phone. "<br>";
+    $output.= "Address: ".$request->address. "<br>";
+    return $output;
    }
 
-   public function Contact(){
-    return view('Contact');
-}
 }

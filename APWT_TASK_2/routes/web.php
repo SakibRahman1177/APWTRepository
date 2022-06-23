@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\PagesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,4 +21,5 @@ Route::post('/login',[loginController::class, 'loginSubmitted'])->name('Login');
 Route::get('/registration',[loginController::class, 'CustReg'])->name('Registration');
 Route::post('/registration',[loginController::class, 'CustRegSubmitted'])->name('Registration');
 
-Route::get('/contact',[loginController::class, 'Contact'])->name('Contact');
+Route::get('/contact',[PagesController::class, 'Contact'])->name('Contact');
+Route::post('/contact',[PagesController::class, 'ContactDetails'])->name('Contact');

@@ -49,8 +49,17 @@
         @error('phone')
             <span class="text-danger">{{$message}}</span>
         @enderror
+        </br></br>
+        </div>
+    <div>
+        <span>Address &nbsp;</span>
+        <input type="text" name="address" value="{{old('address')}}" size="40"></br>
+        @error('address')
+            <span class="text-danger">{{$message}}</span>
+        @enderror
+        </br></br>
         </div></div>
-      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+      <button name="submit" type="submit" id="submit" data-submit="...Sending">Submit</button>
 </form>
 </div>
 @endsection
