@@ -11,13 +11,21 @@ class loginController extends Controller
     }
     public function loginSubmitted(Request $request){
         $validate = $request->validate([
-            "username"=>"required|alpha|min:4|max:20",
+            "username"=>"required|string|regex:/^[a-zA-Z0-9\s]+$/|min:4|max:20",
             'password' => 'required|string|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
         ],
     );
 }
     public function CustReg(){
         return view('Registration');
+    }
+    public function passes($attribute, $value)
+    {
+        if(preg_match('/^[a-zA-Z]+(?:\s[a-zA-Z]+)+$/', $value)){
+            return true;
+        }else {
+            return false;
+        }
     }
     public function CustRegSubmitted(Request $request){
         $validate = $request->validate([
