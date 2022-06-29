@@ -5,7 +5,7 @@
     </head>
 
     <body>
-            @include('inc.HomeTopnav')
+            @include('inc.DashTopnav')
             <div>
                 @yield('content')
             </div>

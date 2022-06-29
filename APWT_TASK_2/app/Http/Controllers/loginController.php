@@ -32,6 +32,7 @@ class loginController extends Controller
             "name"=>"required|min:4|max:20",
             "id"=>"required|integer|digits:8",
             'dob'=>'required|after_or_equal:1990-01-01|before:today',
+            'gender'=>'required|in:male,female',
             'email'=>'required|email',
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|digits:11',
             'address' => 'required'
