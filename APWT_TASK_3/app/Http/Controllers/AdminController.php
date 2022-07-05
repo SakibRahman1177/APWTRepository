@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use App\Models\Customer;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -15,7 +17,11 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        
+    }
+    public function UserList(){
+        $customers = DB::select('select * from customers');
+        return view('admin.UserList',['customers'=>$customers]);
     }
 
     /**

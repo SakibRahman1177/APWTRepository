@@ -5,6 +5,9 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -13,6 +16,7 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -26,7 +30,17 @@ class CustomerController extends Controller
             'password' => 'required|string|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
         ],
     );
-}
+        $customer = Customer::where('username',$request->username)
+        ->where('password',$request->password)
+        ->first();
+
+    // return $customer;
+        if($customer){
+        $request->session()->put('customer',$customer->username);
+        return redirect()->route('Dashboard');
+        }
+        return back()->with('error','Invalid Username or Password!');
+    }
     public function CustReg(){
         return view('customer.Registration');
     }
@@ -38,8 +52,10 @@ class CustomerController extends Controller
             return false;
         }
     }
-    public function CustRegSubmitted(Request $request){
-        $validate = $request->validate([
+
+    public function Create(Request $request)
+    {     
+           $rules = [
             "name"=>"required|min:4|max:20",
             "CustId"=>"required|integer|digits:8",
             'dob'=>'required|after_or_equal:1990-01-01|before:today',
@@ -50,34 +66,76 @@ class CustomerController extends Controller
             'email'=>'required|email',
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|digits:11',
             'address' => 'required'
-        ],
-        ['name.required'=>"Required Field must be Filled-Up"]
-    );
-    $output = "<h1>SUBMITTED DATA</h1>";
-    $output.= "Name:     ".$request->name. "<br>";
-    $output.= "ID:   ".$request->id. "<br>";
-    $output.= "DOB:      ".$request->dob. "<br>";
-    $output.= "Gender:   ".$request->gender. "<br>";
-    $output.= "Email:    ".$request->email. "<br>";
-    $output.= "Phone:    ".$request->phone. "<br>";
-    $output.= "Address:  ".$request->address. "<br>";
-    return $output;
-   }
+           ];
+        ['name.required'=>"Required Field must be Filled-Up"];//
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+			return redirect('registration')
+			->withInput()
+			->withErrors($validator);
+		}
+		else{
+            $data = $request->input();
 
-   public function Dashboard()
-    {
-        return view('customer.Dashboard');//
+				$customer = new Customer;
+                $customer->name = $data['name'];
+                $customer->CustId = $data['CustId'];
+				$customer->dob = $data['dob'];
+				$customer->gender = $data['gender'];
+                $customer->username = $data['username'];
+                $customer->password = $data['password'];
+				$customer->confirmpass = $data['confirmpass'];
+				$customer->email = $data['email'];
+                $customer->phone = $data['phone'];
+				$customer->address = $data['address'];
+				$customer->save();
+				return redirect('login')->withSuccess('Registered successfully!');
+		}
+    
     }
 
+
+   public function Dashboard(Request $request)
+    {
+            $customer = Customer::where('username', $request->session()->get('customer'))->first();
+            return view('customer.Dashboard')->with('customer', $customer);
+    
+    }
+    public function logout(){
+        session()->forget('customer');
+        return redirect()->route('Login');
+    }
+
+    public function CustomerProfile(Request $request){
+            
+    }
+
+    public function editProfile(Request $request){
+        $customer = Customer::where('username', $request->session()->get('customer'))->first();
+        // return $customer;
+        return view('customer.EditProfile')->with('customer', $customer);
+
+    }
+    public function editProfileSubmitted(Request $request){
+        $customer = Customer::where('username', $request->session()->get('customer'))->first();
+        // return  $student;
+        $customer->name = $request->name;
+        $customer->CustId = $request->CustId;
+        $customer->dob = $request->dob;
+        $customer->username = $request->username;
+        $customer->email = $request->email;
+        $customer->phone = $request->phone;
+        $customer->address = $request->address;
+        $customer->save();
+        return redirect()->route('Dashboard');
+
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+  
 
     /**
      * Store a newly created resource in storage.

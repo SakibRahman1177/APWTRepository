@@ -11,8 +11,8 @@
     <div class="w3-right w3-hide-small">
       <a  class="w3-bar-item w3-button">HOME</a>
       <a href="{{route('Dashboard')}}" class="w3-bar-item w3-button">  DASHBOARD</a>
-      <a href="{{route('EditProfile')}}" class="w3-bar-item w3-button">  EDIT PROFILE</a>
-      <a href="{{route('logout')}}" class="w3-bar-item w3-button">  LOGOUT</a>
+      <a href="{{route('UserList')}}" class="w3-bar-item w3-button">  USER LIST</a>
+      <a href="{{route('Login')}}" class="w3-bar-item w3-button">  LOGOUT</a>
     </div>
     <!-- Hide right-floated links on small screens and replace them with a menu icon -->
 
