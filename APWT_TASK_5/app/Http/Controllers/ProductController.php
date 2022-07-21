@@ -55,6 +55,24 @@ class ProductController extends Controller
             }
     
         }
+
+        public function APIList(){
+            return Product::all();
+        }
+
+        public function APIPost(Request $req){
+            $product = new Product();
+            $product->pname = $req->pname;
+            $product->pId = $req->pId;
+            $product->cname = $req->cname;
+            $product->ctg = $req->ctg;
+            $product->type = $req->type;
+            $product->price = $req->price;
+            $product->status = $req->status;
+            $product->save();
+    
+            return $req;
+        }
     /**
      * Show the form for creating a new resource.
      *
