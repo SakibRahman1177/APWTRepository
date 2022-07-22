@@ -71,7 +71,7 @@ class ProductController extends Controller
             $product->status = $req->status;
             $product->save();
     
-            return $req;
+            return redirect('http://127.0.0.1:8000/');
         }
     /**
      * Show the form for creating a new resource.

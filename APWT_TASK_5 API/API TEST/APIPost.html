@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Products</title>
+    <link rel="stylesheet" href="product.css" />
+</head>
+
+<body>
+
+    <div class="medics">
+        <div class="contain">
+
+            <form action="http://127.0.0.1:8000/api/products/list" id="medics" method="post">
+
+                <h3>Add Products</h3>
+                <h4>Fill-up the details of medicine or other products</h4><br>
+
+                <fieldset><span style="float:left;color:darkslateblue">PRODUCT NAME</span>
+                    <input placeholder="Name of the Product" name="pname" class="text">
+                </fieldset><br>
+                <!-- @error('name')
+                    <span class="text-danger">{{$message}}</span>
+            @enderror -->
+
+
+                <fieldset><span style="float:left;color:darkslateblue">PRODUCT ID</span>
+                    <input placeholder="Unique Product Id" name="pId" class="pId">
+                </fieldset><br>
+                <!-- @error('prmID')
+                    <span class="text-danger">{{$message}}</span>
+            @enderror -->
+
+
+                <fieldset><span style="float:left;color:darkslateblue">COMPANY NAME</span>
+                    <input placeholder="Your Email Address" name="cname" class="cname">
+                </fieldset><br>
+                <!-- @error('email')
+                    <span class="text-danger">{{$message}}</span>
+            @enderror -->
+
+
+                <fieldset><span style="float:left;color:darkslateblue">CATEGOERY</span>
+                    <select name="ctg" value="{{old('ctg')}}" id="ctg" class="ctg" style="width: 60%">
+                <option value="Medicine">Medicine</option>
+                <option value="Surgical & Clinical">Surgical & Clinical</option>
+                <option value="Health & Care">Health & Care</option>
+                <option value="Dental & Oral">Dental & Oral</option>
+              </select>
+                </fieldset><br>
+                <!-- @error('dept')
+                    <span class="text-danger">{{$message}}</span>
+            @enderror -->
+
+
+                <fieldset><span style="float:left;color:darkslateblue">TYPE</span>
+                    <select name="type" value="{{old('type')}}" id="type" class="type" style="width: 60%">
+            <option value="1">[-------------------Medicine-------------------]</option>
+                <option value="Tablet">Tablet</option>
+                <option value="Eye-drop">Eye-drop</option>
+                <option value="Syrup">Syrup</option>
+                <option value="Capsul">Capsul</option>
+                <option value="Injection">Injection</option>
+            <option value="2">[-------------Surgical & Clinical---------------]</option>
+                <option value="Mask">Mask</option>
+                <option value="Device">Device</option>
+                <option value="Gloves">Gloves</option>
+                <option value="Brush">Brush</option>
+            <option value="3">[----------------Health & Care------------------]</option>
+                <option value="Syrup">Syrup</option>
+                <option value="Capsul">Capsul</option>
+            <option value="4">[----------------Dental & Oral------------------]</option>
+                <option value="Ointment">Ointment</option>
+                <option value="Solution">Solution</option>
+              </select>
+                </fieldset><br>
+                <!-- @error('type')
+                    <span class="text-danger">{{$message}}</span>
+            @enderror -->
+
+
+
+
+                <fieldset><span style="float:left;color:darkslateblue">PRICE</span>
+                    <input placeholder="Product price" name="price" class="price">
+                </fieldset><br>
+                <!-- @error('username')
+                    <span class="text-danger">{{$message}}</span>
+            @enderror -->
+
+
+                <fieldset><span style="float:left;color:darkslateblue">PRODUCT STATUS</span>
+                    <input placeholder="Enter product status" name="status" class="cname">
+                </fieldset><br>
+                <!-- @error('email')
+                    <span class="text-danger">{{$message}}</span>
+            @enderror -->
+
+                <fieldset>
+                    <button name="submit" class="submit" id="contact-submit" data-submit="...Sending">Add</button>
+                    <a class="btn btn-danger btn-sm px-3 my-2" href="APITest.html">Back</a>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
